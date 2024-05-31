@@ -24,4 +24,4 @@ metadata:
   name: prod
 description: prod GKE cluster
 gke:
- cluster: projects/terraform-workspace-422014/locations/us-central1/clusters/canary-quickstart-cluster
+ cluster: projects/<PROYECT-ID>/locations/us-central1/clusters/canary-quickstart-cluster
