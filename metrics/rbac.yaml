@@ -1,0 +1,26 @@
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: notifyn-gsa
+  namespace: test
+rules:
+  - apiGroups: ["logging.cnrm.cloud.google.com"]
+    resources:
+      - logginglogmetrics
+    verbs: ["get", "list", "create", "update", "delete"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: notifyn-gsa-binding
+  namespace: test
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: notifyn-gsa
+subjects:
+- kind: User
+  name: gke-service-account-id@terraform-workspace-422014.iam.gserviceaccount.com
+  apiGroup: rbac.authorization.k8s.io
+---

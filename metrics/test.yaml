@@ -1,0 +1,17 @@
+apiVersion: logging.cnrm.cloud.google.com/v1beta1
+kind: LoggingLogMetric
+metadata:
+  name: "notify-error-count"
+spec:
+  filter: |
+    resource.type="k8s_container"
+    resource.labels.project_id="terraform-workspace-422014"
+    resource.labels.location="us-central1"
+    resource.labels.cluster_name="my-gke-cluster"
+    resource.labels.namespace_name="test"
+    resource.labels.container_name="kubernetes-bootcamp"
+    (severity="INFO" OR severity="ERROR" OR severity="CRITICAL" OR severity="ALERT" OR severity="EMERGENCY") AND
+    textPayload:("code=500" OR "code=600" OR "code=700" OR "code=800")
+  description: "Number of errors in kubernetes-bootcamp service."
+  projectRef:
+    external: "projects/terraform-workspace-422014"

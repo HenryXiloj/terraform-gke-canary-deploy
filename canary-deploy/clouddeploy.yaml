@@ -1,0 +1,27 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: my-canary-demo-app-1
+description: main application pipeline
+serialPipeline:
+  stages:
+  - targetId: prod
+    profiles: []
+    strategy:
+      canary:
+        runtimeConfig:
+          kubernetes:
+            serviceNetworking:
+              service: "my-service"
+              deployment: "my-deployment"
+        canaryDeployment:
+          percentages: [50]
+          verify: false
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prod
+description: prod GKE cluster
+gke:
+ cluster: projects/terraform-workspace-422014/locations/us-central1/clusters/canary-quickstart-cluster
